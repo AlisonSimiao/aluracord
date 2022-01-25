@@ -54,11 +54,11 @@ function HomePage() {
         <div>
             <GlobalStyle />
             <Title tag="h3">Boas vindas de volta</Title>
-            <h2>Discord - Alura matrix</h2>
+            <h2>Discord - Alura Marvel</h2>
         </div>
     )
   }
-  
+
 export default function PaginaInicial() {
     const username = 'superalison';
   
