@@ -1,36 +1,8 @@
+import React from "react";
+import { useRouter } from "next/router";
 import appConfig from "../config.json"
 import { Box, Button, Text, TextField, Image } from '@skynexui/components';
 
-function GlobalStyle() {
-    return(
-        <style global jsx>{`
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-                list-style: none;
-            }
-            body {
-                font-family: 'Open Sans', sans-serif;
-            }
-            /* App fit Height */ 
-            html, body, #__next {
-                min-height: 100vh;
-                display: flex;
-                flex: 1;
-            }
-            #__next {
-                flex: 1;
-            }
-            #__next > * {
-                flex: 1;
-            }
-            /* ./App fit Height */ 
-        
-                `}
-        </style>
-    );
-}
 
 function Titulo(props) {
     const Tag = props.tag || 'h1';
@@ -52,7 +24,6 @@ function Titulo(props) {
 function HomePage() {
     return(
         <div>
-            <GlobalStyle />
             <Title tag="h3">Boas vindas de volta</Title>
             <h2>Discord - Alura Marvel</h2>
         </div>
@@ -60,15 +31,15 @@ function HomePage() {
   }
 
 export default function PaginaInicial() {
-    const username = 'superalison';
+    const [username, setUsername] =  React.useState("superalison");
+    const roteamento = useRouter();
   
     return (
       <>
-        <GlobalStyle />
         <Box
           styleSheet={{
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            backgroundColor: appConfig.theme.colors.primary[900],
+            backgroundColor: appConfig.theme.colors.primary[200],
             backgroundImage: 'url(https://images4.alphacoders.com/975/thumb-1920-975294.jpg)',
             backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
           }}
@@ -91,6 +62,12 @@ export default function PaginaInicial() {
             {/* Formulário */}
             <Box
               as="form"
+              onSubmit={function(e) {
+                  e.preventDefault();
+                  roteamento.push("/chat");
+              }
+
+              }
               styleSheet={{
                 display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
                 width: { xs: '100%', sm: '50%' }, textAlign: 'center', marginBottom: '32px',
@@ -98,10 +75,16 @@ export default function PaginaInicial() {
             >
               <Titulo tag="h2">Boas vindas de volta!</Titulo>
               <Text variant="body3" styleSheet={{ marginBottom: '32px', color: appConfig.theme.colors.neutrals[300] }}>
-                {appConfig.name}
+                {appConfig.name +"("+ username+")"}
               </Text>
   
               <TextField
+                value={username}
+                onChange={(e)=>{
+                  const valor = e.target.value;
+
+                  setUsername(valor);
+                }}
                 fullWidth
                 textFieldColors={{
                   neutral: {
@@ -148,7 +131,8 @@ export default function PaginaInicial() {
                   borderRadius: '50%',
                   marginBottom: '16px',
                 }}
-                src={`https://github.com/${username}.png`}
+                src={username.length > 2? `https://github.com/${username}.png`: 'https://camo.githubusercontent.com/b7b7dca15c743879821e7cfc14e8034ecee3588e221de0a6f436423e304d95f5/68747470733a2f2f7a7562652e696f2f66696c65732f706f722d756d612d626f612d63617573612f33363664616462316461323032353338616531333332396261333464393030362d696d6167652e706e67'
+                }
               />
               <Text
                 variant="body4"
