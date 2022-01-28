@@ -31,7 +31,7 @@ function HomePage() {
   }
 
 export default function PaginaInicial() {
-    const [username, setUsername] =  React.useState("superalison");
+    const [username, setUsername] =  React.useState("");
     const roteamento = useRouter();
   
     return (
