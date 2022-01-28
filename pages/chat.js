@@ -97,7 +97,7 @@ export default function ChatPage() {
                             }}
                         />
                         <Button 
-                            label="enviar"
+                            label="OK"
                             onClick={(e)=>{
                                 handleNovaMensagem(mensagem)
                             }}  
